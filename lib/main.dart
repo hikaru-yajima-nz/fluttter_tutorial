@@ -12,11 +12,44 @@ class MyApp extends StatelessWidget {
       title: appTitle,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(appTitle),
+          title: const Center(
+            child: Text(appTitle),
+          ),
         ),
         body: const Center(
-          child: Text('Hello World'),
+          child: TitleSection(name: 'テストでdesuす'),
         ),
+      ),
+    );
+  }
+}
+
+class TitleSection extends StatelessWidget {
+  const TitleSection({
+    super.key,
+    required this.name,
+    //required this.location,
+  });
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(100),
+      child: Row(
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min, 
+            //最小サイズに合わせる
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Text('Row1-1'),
+            Text('Row1-2'),
+          ]),
+          Icon(Icons.star),
+          Text('Row3'),
+        ],
       ),
     );
   }
