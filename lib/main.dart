@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         body: const SingleChildScrollView(
           child: Column(
             children: [
+              ImageSection(image: 'images/lake.jpg'),
               TitleSection(
                 name: 'Oeschinen Lake Campground',
                 location: 'Kandersteg, Switzerland',
@@ -167,9 +168,30 @@ class TextSection extends StatelessWidget {
         padding: const EdgeInsets.all(32),
         child: Text(
           discription,
-          softWrap: true,//
+          softWrap: true,
+          //テキストがコンテナの幅を超えた場合に、自動的に改行を行う。
+          //falseはテキストはコンテナの幅を超えても一行で表示され、横スクロールが必要
         )
     );
   }
 }
 
+
+class ImageSection extends StatelessWidget {
+  const ImageSection({super.key, required this.image});
+
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      image,
+      width: 600,
+      height: 240,
+      fit: BoxFit.cover,
+      //幅と高さが決まった領域に、アスペクト比が異なる画像を表示する場合、
+      //BoxFit.cover を使うと、画像全体が領域内に収まるように拡大縮小されますが、
+      //画面からはみ出た部分は切り取られます。
+    );
+  }
+}
