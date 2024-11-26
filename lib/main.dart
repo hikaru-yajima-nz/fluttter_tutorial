@@ -16,8 +16,15 @@ class MyApp extends StatelessWidget {
             child: Text(appTitle),
           ),
         ),
-        body: const Center(
-          child: TitleSection(name: 'テストでdesuす'),
+        body: const SingleChildScrollView(
+          child: Column(
+            children: [
+              TitleSection(
+                name: 'Oeschinen Lake Campground',
+                location: 'Kandersteg, Switzerland',
+                ),
+            ],
+          ),
         ),
       ),
     );
@@ -28,27 +35,41 @@ class TitleSection extends StatelessWidget {
   const TitleSection({
     super.key,
     required this.name,
-    //required this.location,
+    required this.location,
   });
 
   final String name;
+  final String location;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(100),
+      padding: const EdgeInsets.all(30),//全体の余白
+      
       child: Row(
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.min, 
-            //最小サイズに合わせる
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-            Text('Row1-1'),
-            Text('Row1-2'),
-          ]),
-          Icon(Icons.star),
-          Text('Row3'),
+          Expanded( //Expandedでいい感じの配置になった
+            child:
+            Column(
+              mainAxisSize: MainAxisSize.min, 
+              //最小サイズに合わせる
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Text(name,
+                      style: const TextStyle(   //constつけた方がいいよって注意されたため
+                      fontWeight: FontWeight.bold,
+                      ),
+              ),
+              Text(location,
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        )
+              ),
+              ]
+            )
+          ),
+          Icon(Icons.star,color: Colors.red[500],),
+          const Text('41'),
         ],
       ),
     );
