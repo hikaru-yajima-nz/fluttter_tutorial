@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -9,11 +10,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const String appTitle = 'Flutter layout demo';
     return MaterialApp(
-      title: appTitle,
+      title: appTitle,//アプリ内には表示されないタイトル名、webのタブとかで表示される　例：Gmail
       home: Scaffold(
         appBar: AppBar(
           title: const Center(
-            child: Text(appTitle),
+            child: Text(appTitle),//アプリ内で上部に表示されるタイトル名　例：受信メール
           ),
         ),
         body: const SingleChildScrollView(
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
                 name: 'Oeschinen Lake Campground',
                 location: 'Kandersteg, Switzerland',
                 ),
+              ButtonSection(),
             ],
           ),
         ),
@@ -48,15 +50,15 @@ class TitleSection extends StatelessWidget {
       
       child: Row(
         children: [
-          Expanded( //Expandedでいい感じの配置になった
+          Expanded( //Expandedでいい感じの配置になった　余白部分のスペースまで
             child:
             Column(
               mainAxisSize: MainAxisSize.min, 
               //最小サイズに合わせる
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,//左寄せ
               children: [
               Text(name,
-                      style: const TextStyle(   //constつけた方がいいよって注意されたため
+                      style: const TextStyle(   //constつけられるのは、変数がなければ
                       fontWeight: FontWeight.bold,
                       ),
               ),
@@ -72,6 +74,73 @@ class TitleSection extends StatelessWidget {
           const Text('41'),
         ],
       ),
+    );
+  }
+}
+
+class ButtonSection extends StatelessWidget {
+  const ButtonSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = Theme.of(context).primaryColor;
+    return SizedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ButtonWithText(
+            color: color,
+            icon: Icons.call,
+            label: 'CALL',
+          ),
+          ButtonWithText(
+            color: color,
+            icon: Icons.near_me,
+            label: 'ROUTE',
+          ),
+          ButtonWithText(
+            color: color,
+            icon: Icons.share,
+            label: 'SHARE',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ButtonWithText extends StatelessWidget {
+  const ButtonWithText({
+    super.key,
+    required this.color,
+    required this.icon,
+    required this.label,
+    });
+
+  final Color color;
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: color),
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
+        ),
+      ]
     );
   }
 }
